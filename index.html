@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <link rel="stylesheet" href="file.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Search</h1>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search...">
+            <button onclick="performSearch()">Search</button>
+        </div>
+
+        <div class="filters">
+            <label for="filter">Filter by:</label>
+            <select id="filter">
+                <option value="all">All</option>
+                <option value="category1">Category 1</option>
+                <option value="category2">Category 2</option>
+            </select>
+        </div>
+
+        <ul class="results" id="results"></ul>
+    </div>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById('search-input').value;
+            const filter = document.getElementById('filter').value;
+            const results = document.getElementById('results');
+
+            const data = [
+                { title: "Result 1", category: "category1" },
+                { title: "Result 2", category: "category2" },
+                { title: "Result 3", category: "category1" },
+                { title: "Result 4", category: "category2" }
+            ];
+
+            const filteredData = data.filter(item => {
+                return (filter === 'all' || item.category === filter) &&
+                       item.title.toLowerCase().includes(query.toLowerCase());
+            });
+
+            results.innerHTML = filteredData.map(item => `<li>${item.title}</li>`).join('') || '<li>No results found</li>';
+        }
+    </script>
+</body>
+</html>
